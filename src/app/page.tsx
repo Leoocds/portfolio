@@ -173,10 +173,10 @@ export default function Home() {
           <Image
             src="/foto.webp"
             alt="Foto de Leonardo de Lima Pedroso"
-            width={340}
-            height={340}
+            width={380}
+            height={380}
             priority
-            className="h-28 w-28 shrink-0 rounded-full border border-line object-cover shadow-lg shadow-shadow sm:h-36 sm:w-36 md:h-[170px] md:w-[170px]"
+            className="h-48 w-48 shrink-0 rounded-full border border-line object-cover shadow-lg shadow-shadow sm:h-60 sm:w-60 md:h-72 md:w-72 lg:h-80 lg:w-80"
           />
         </section>
 

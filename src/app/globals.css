@@ -1,14 +1,17 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #ffffff;
-  --subtle: #f5f6f8;
-  --line: #e6e8ec;
-  --text: #0f172a;
-  --muted: #5b6474;
-  --accent: #2563eb;
-  --chip: #334155;
-  --shadow: rgb(148 163 184 / 0.25);
+  /* off-white canvas, cards sit on a slightly brighter surface */
+  --bg: #f7f7f5;
+  --surface: #ffffff;
+  --subtle: #efefec;
+  --line: #e4e4e0;
+  --text: #16171a;
+  --muted: #5d5f66;
+  --accent: #1a56f0;
+  --on-accent: #ffffff;
+  --chip: #3a3c42;
+  --shadow: rgb(24 24 27 / 0.08);
   color-scheme: light dark;
 }
 
@@ -16,11 +19,13 @@
 @media (prefers-color-scheme: dark) {
   :root {
     --bg: #0d1117;
-    --subtle: #161b22;
+    --surface: #121820;
+    --subtle: #1a212b;
     --line: #262d36;
     --text: #e6edf3;
     --muted: #9198a1;
-    --accent: #4c8dff;
+    --accent: #5b8cff;
+    --on-accent: #0d1117;
     --chip: #c9d1d9;
     --shadow: rgb(0 0 0 / 0.4);
   }
@@ -28,6 +33,8 @@
 
 @theme inline {
   --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-on-accent: var(--on-accent);
   --color-subtle: var(--subtle);
   --color-line: var(--line);
   --color-text: var(--text);

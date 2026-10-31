@@ -24,6 +24,12 @@ const skills = [
 // stretches a small link's tap area to ~44px without changing how it looks
 const tapArea = "relative after:absolute after:-inset-x-2 after:-inset-y-3";
 
+// one chip style for skills and project tags
+const chip = "rounded-full bg-subtle px-3 py-1 text-xs font-medium text-chip";
+
+const button = "rounded-xl px-5 py-3 text-sm font-semibold transition select-none";
+const glassButton = `${button} border border-line bg-surface/60 backdrop-blur-md hover:bg-surface active:bg-subtle`;
+
 function Cover({ cover }: { cover: Project["cover"] }) {
   if (cover.kind === "discord") return <DiscordPreview />;
   if (cover.kind === "mobile") {
@@ -32,7 +38,7 @@ function Cover({ cover }: { cover: Project["cover"] }) {
         {cover.shots.map((s) => (
           <div
             key={s.src}
-            className="relative h-[92%] w-[26%] overflow-hidden rounded-t-xl border border-b-0 border-line bg-white shadow-sm"
+            className="relative h-[92%] w-[26%] overflow-hidden rounded-t-xl border border-b-0 border-line bg-white shadow-lg shadow-shadow"
           >
             <Image
               src={s.src}
@@ -60,7 +66,7 @@ function Cover({ cover }: { cover: Project["cover"] }) {
 function ProjectCard({ p }: { p: Project }) {
   return (
     <article
-      className={`group flex flex-col overflow-hidden rounded-2xl border border-line bg-bg transition hover:border-muted/40 hover:shadow-lg hover:shadow-shadow ${
+      className={`group flex flex-col overflow-hidden rounded-2xl border border-line bg-surface shadow-sm shadow-shadow transition hover:border-muted/40 hover:shadow-lg ${
         p.featured ? "md:col-span-2 md:grid md:grid-cols-[1.4fr_1fr]" : ""
       }`}
     >
@@ -79,16 +85,13 @@ function ProjectCard({ p }: { p: Project }) {
         <p className="mt-3 leading-relaxed text-muted">{p.summary}</p>
         <ul className="mt-5 flex flex-wrap gap-1.5">
           {p.tags.map((t) => (
-            <li
-              key={t}
-              className="rounded-full bg-subtle px-2.5 py-1 text-xs font-medium text-chip"
-            >
+            <li key={t} className={chip}>
               {t}
             </li>
           ))}
         </ul>
         <div
-          className={`flex gap-5 pt-6 text-sm font-medium ${p.featured ? "" : "mt-auto"}`}
+          className={`flex gap-6 pt-6 text-sm font-medium ${p.featured ? "" : "mt-auto"}`}
         >
           {p.links.map((l) => (
             <a
@@ -110,7 +113,7 @@ function ProjectCard({ p }: { p: Project }) {
 export default function Home() {
   return (
     <>
-      <header className="sticky top-0 z-40 border-b border-line bg-bg/90 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b border-line/60 bg-bg/70 backdrop-blur-xl backdrop-saturate-150">
         <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
           <a href="#" className={`${tapArea} font-semibold tracking-tight active:opacity-60`}>
             Leonardo Pedroso
@@ -143,7 +146,7 @@ export default function Home() {
                 href={LINKEDIN}
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-white transition select-none hover:brightness-110 active:brightness-90"
+                className={`${button} bg-accent text-on-accent shadow-sm shadow-shadow hover:brightness-110 active:brightness-90`}
               >
                 LinkedIn
               </a>
@@ -151,23 +154,20 @@ export default function Home() {
                 href={GITHUB}
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-lg border border-line px-5 py-3 text-sm font-semibold transition select-none hover:bg-subtle active:bg-subtle"
+                className={glassButton}
               >
                 GitHub
               </a>
               <a
                 href={`mailto:${EMAIL}`}
-                className="rounded-lg border border-line px-5 py-3 text-sm font-semibold transition select-none hover:bg-subtle active:bg-subtle"
+                className={glassButton}
               >
                 E-mail
               </a>
             </div>
             <ul className="mt-12 flex max-w-3xl flex-wrap gap-2">
               {skills.map((s) => (
-                <li
-                  key={s}
-                  className="rounded-md border border-line px-3 py-1 text-sm text-chip"
-                >
+                <li key={s} className={chip}>
                   {s}
                 </li>
               ))}
@@ -179,7 +179,7 @@ export default function Home() {
             width={380}
             height={380}
             priority
-            className="h-48 w-48 shrink-0 rounded-full border border-line object-cover shadow-lg shadow-shadow sm:h-60 sm:w-60 md:h-72 md:w-72 lg:h-80 lg:w-80"
+            className="h-48 w-48 shrink-0 rounded-full object-cover shadow-xl ring-4 ring-surface shadow-shadow sm:h-60 sm:w-60 md:h-72 md:w-72 lg:h-80 lg:w-80"
           />
         </section>
 
@@ -200,11 +200,11 @@ export default function Home() {
         </section>
 
         <section id="contato" className="pb-24">
-          <div className="rounded-2xl bg-subtle px-6 py-12 text-center sm:px-12">
+          <div className="rounded-2xl border border-line bg-surface px-6 py-12 text-center shadow-sm shadow-shadow sm:px-12">
             <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
               Vamos conversar?
             </h2>
-            <p className="mx-auto mt-3 max-w-lg text-muted">
+            <p className="mx-auto mt-3 max-w-lg text-balance text-muted">
               Estou em busca de uma vaga como desenvolvedor full stack ou
               front-end.
             </p>

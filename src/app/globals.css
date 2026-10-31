@@ -1,41 +1,50 @@
 @import "tailwindcss";
 
 :root {
-  --paper: #f6f3ee;
-  --ink: #23201c;
-  --soft: #6b645b;
-  --rule: #ddd6cb;
-  --link: #9a3b1b;
+  --bg: #ffffff;
+  --subtle: #f5f6f8;
+  --line: #e6e8ec;
+  --text: #0f172a;
+  --muted: #5b6474;
+  --accent: #2563eb;
+  --chip: #334155;
+  --shadow: rgb(148 163 184 / 0.25);
+  color-scheme: light dark;
+}
+
+/* follows the OS setting */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0d1117;
+    --subtle: #161b22;
+    --line: #262d36;
+    --text: #e6edf3;
+    --muted: #9198a1;
+    --accent: #4c8dff;
+    --chip: #c9d1d9;
+    --shadow: rgb(0 0 0 / 0.4);
+  }
 }
 
 @theme inline {
-  --color-paper: var(--paper);
-  --color-ink: var(--ink);
-  --color-soft: var(--soft);
-  --color-rule: var(--rule);
-  --color-link: var(--link);
-  --font-serif: var(--font-serif-family);
-  --font-sans: var(--font-sans-family);
+  --color-bg: var(--bg);
+  --color-subtle: var(--subtle);
+  --color-line: var(--line);
+  --color-text: var(--text);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-chip: var(--chip);
+  --color-shadow: var(--shadow);
+  --font-sans: var(--font-geist);
 }
 
 html {
-  scroll-padding-top: 2rem;
+  scroll-behavior: smooth;
+  scroll-padding-top: 4.5rem;
 }
 
 body {
-  background: var(--paper);
-  color: var(--ink);
+  background: var(--bg);
+  color: var(--text);
   font-family: var(--font-sans), system-ui, sans-serif;
-  font-size: 1.0625rem;
-}
-
-a.u {
-  color: var(--link);
-  text-decoration: underline;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 3px;
-}
-
-a.u:hover {
-  text-decoration-thickness: 2px;
 }

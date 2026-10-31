@@ -1,123 +1,158 @@
 import Image from "next/image";
 import DiscordPreview from "@/components/DiscordPreview";
-import { projects, type Shot } from "@/data/projects";
+import { projects, type Project } from "@/data/projects";
 
 const EMAIL = "leonardoo.lpedroso@gmail.com";
 const GITHUB = "https://github.com/Leoocds";
 const LINKEDIN = "https://www.linkedin.com/in/leonardo-de-lima-pedroso/";
 
-function Shots({ shots }: { shots: Shot[] }) {
-  const mobile = shots.filter((s) => s.kind === "mobile");
-  const desktop = shots.filter((s) => s.kind === "desktop");
+const skills = ["React", "Next.js", "TypeScript", "JavaScript", "Tailwind CSS", "Node.js", "Express", "Prisma", "PostgreSQL", "MySQL", "Python", "Git"];
 
+function Cover({ cover }: { cover: Project["cover"] }) {
+  if (cover.kind === "discord") return <DiscordPreview />;
+  if (cover.kind === "mobile") {
+    return (
+      <div className="flex h-full items-end justify-center gap-3 bg-subtle px-6 pt-6 sm:gap-4">
+        {cover.shots.map((s) => (
+          <div key={s.src} className="relative h-[92%] w-[26%] overflow-hidden rounded-t-xl border border-b-0 border-line bg-white shadow-sm">
+            <Image src={s.src} alt={s.alt} fill sizes="160px" className="object-cover object-top" />
+          </div>
+        ))}
+      </div>
+    );
+  }
   return (
-    <div className="my-8 flex flex-col gap-8">
-      {desktop.map((s) => (
-        <figure key={s.src}>
-          <a href={s.src} target="_blank" rel="noreferrer">
-            <Image
-              src={s.src}
-              alt={s.caption}
-              width={1440}
-              height={900}
-              sizes="(min-width: 768px) 720px, 100vw"
-              className="w-full rounded border border-rule shadow-sm"
-            />
-          </a>
-          <figcaption className="mt-2 text-sm text-soft">{s.caption}</figcaption>
-        </figure>
-      ))}
-      {mobile.length > 0 && (
-        <div className="grid grid-cols-3 gap-3 sm:gap-5">
-          {mobile.map((s) => (
-            <figure key={s.src}>
-              <a href={s.src} target="_blank" rel="noreferrer">
-                <Image
-                  src={s.src}
-                  alt={s.caption}
-                  width={1170}
-                  height={2532}
-                  sizes="240px"
-                  className="w-full rounded-lg border border-rule shadow-sm"
-                />
-              </a>
-              <figcaption className="mt-2 text-center text-sm text-soft">{s.caption}</figcaption>
-            </figure>
+    <Image
+      src={cover.shot.src}
+      alt={cover.shot.alt}
+      fill
+      sizes="(min-width: 768px) 560px, 100vw"
+      className="object-cover object-top transition duration-500 group-hover:scale-[1.02]"
+    />
+  );
+}
+
+function ProjectCard({ p }: { p: Project }) {
+  return (
+    <article
+      className={`group flex flex-col overflow-hidden rounded-2xl border border-line bg-bg transition hover:border-muted/40 hover:shadow-lg hover:shadow-shadow ${
+        p.featured ? "md:col-span-2 md:grid md:grid-cols-[1.4fr_1fr]" : ""
+      }`}
+    >
+      <div
+        className={`relative aspect-[16/10] overflow-hidden border-line ${p.featured ? "border-b md:border-r md:border-b-0" : "border-b"}`}
+      >
+        <Cover cover={p.cover} />
+      </div>
+      <div className={`flex flex-1 flex-col p-6 ${p.featured ? "md:justify-center md:p-10" : ""}`}>
+        <p className="text-sm text-muted">
+          {p.context} · {p.year}
+        </p>
+        <h3 className="mt-1 text-xl font-semibold tracking-tight">{p.name}</h3>
+        <p className="mt-3 leading-relaxed text-muted">{p.summary}</p>
+        <ul className="mt-5 flex flex-wrap gap-1.5">
+          {p.tags.map((t) => (
+            <li key={t} className="rounded-full bg-subtle px-2.5 py-1 text-xs font-medium text-chip">
+              {t}
+            </li>
+          ))}
+        </ul>
+        <div className={`flex gap-5 pt-6 text-sm font-medium ${p.featured ? "" : "mt-auto"}`}>
+          {p.links.map((l) => (
+            <a key={l.href} href={l.href} target="_blank" rel="noreferrer" className="text-accent hover:underline">
+              {l.label}
+            </a>
           ))}
         </div>
-      )}
-    </div>
+      </div>
+    </article>
   );
 }
 
 export default function Home() {
   return (
-    <main className="mx-auto max-w-[720px] px-4 py-16 sm:px-6 sm:py-24">
-      <header>
-        <h1 className="font-serif text-4xl font-semibold sm:text-5xl">Leonardo de Lima Pedroso</h1>
-        <p className="mt-6 text-lg leading-relaxed">
-          Oi! Sou desenvolvedor web, formado em Análise e Desenvolvimento de Sistemas no IFSP de Cubatão. Trabalho
-          principalmente com React, Next.js e Node.js, tanto no front-end quanto no back-end.
-        </p>
-        <p className="mt-4 text-lg leading-relaxed">
-          Estou procurando vaga como desenvolvedor full stack ou front-end. Abaixo estão alguns projetos que fiz,
-          sozinho e em equipe.
-        </p>
-        <p className="mt-6 flex flex-wrap gap-x-5 gap-y-1">
-          <a className="u" href={`mailto:${EMAIL}`}>{EMAIL}</a>
-          <a className="u" href={LINKEDIN} target="_blank" rel="noreferrer">LinkedIn</a>
-          <a className="u" href={GITHUB} target="_blank" rel="noreferrer">GitHub</a>
-        </p>
+    <>
+      <header className="sticky top-0 z-40 border-b border-line bg-bg/90 backdrop-blur">
+        <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
+          <a href="#" className="font-semibold tracking-tight">Leonardo Pedroso</a>
+          <div className="flex gap-6 text-sm text-muted">
+            <a href="#projetos" className="hover:text-text">Projetos</a>
+            <a href="#contato" className="hover:text-text">Contato</a>
+          </div>
+        </nav>
       </header>
 
-      <hr className="my-16 border-rule" />
-
-      <section aria-label="Projetos">
-        {projects.map((p, i) => (
-          <article key={p.slug} id={p.slug} className={i > 0 ? "mt-20" : undefined}>
-            <h2 className="font-serif text-2xl font-semibold sm:text-3xl">{p.name}</h2>
-            <p className="mt-1 text-soft">
-              {p.year}, {p.context}
-            </p>
-
-            {p.paragraphs.map((t) => (
-              <p key={t} className="mt-4 leading-relaxed">{t}</p>
+      <main className="mx-auto max-w-6xl px-4 sm:px-6">
+        <section className="py-20 sm:py-28">
+          <p className="font-medium text-accent">Olá, eu sou o Leonardo</p>
+          <h1 className="mt-3 max-w-3xl text-4xl font-bold tracking-tight sm:text-6xl">Desenvolvedor Full Stack</h1>
+          <p className="mt-6 max-w-2xl text-lg leading-relaxed text-muted">
+            Formado em Análise e Desenvolvimento de Sistemas pelo IFSP Cubatão. Desenvolvo aplicações web com React,
+            Next.js e Node.js, do front-end ao banco de dados.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <a
+              href={LINKEDIN}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-110"
+            >
+              LinkedIn
+            </a>
+            <a
+              href={GITHUB}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-lg border border-line px-5 py-2.5 text-sm font-semibold transition hover:bg-subtle"
+            >
+              GitHub
+            </a>
+            <a
+              href={`mailto:${EMAIL}`}
+              className="rounded-lg border border-line px-5 py-2.5 text-sm font-semibold transition hover:bg-subtle"
+            >
+              E-mail
+            </a>
+          </div>
+          <ul className="mt-12 flex max-w-3xl flex-wrap gap-2">
+            {skills.map((s) => (
+              <li key={s} className="rounded-md border border-line px-3 py-1 text-sm text-chip">
+                {s}
+              </li>
             ))}
+          </ul>
+        </section>
 
-            {p.shots.length > 0 ? (
-              <Shots shots={p.shots} />
-            ) : (
-              <div className="my-8">
-                <DiscordPreview />
-                <p className="mt-2 text-sm text-soft">Mais ou menos assim que as mensagens aparecem no Discord (ilustração).</p>
-              </div>
-            )}
+        <section id="projetos" className="pb-24">
+          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">Projetos</h2>
+          <p className="mt-2 text-muted">Alguns projetos que desenvolvi, sozinho e em equipe.</p>
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
+            {[...projects].sort((a, b) => Number(!!b.featured) - Number(!!a.featured)).map((p) => (
+              <ProjectCard key={p.slug} p={p} />
+            ))}
+          </div>
+        </section>
 
-            <p className="text-soft">
-              <span className="text-ink">Feito com:</span> {p.stack}
+        <section id="contato" className="pb-24">
+          <div className="rounded-2xl bg-subtle px-6 py-12 text-center sm:px-12">
+            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">Vamos conversar?</h2>
+            <p className="mx-auto mt-3 max-w-lg text-muted">
+              Estou em busca de uma vaga como desenvolvedor full stack ou front-end.
             </p>
-            <p className="mt-2 flex flex-wrap gap-x-5">
-              {p.links.map((l) => (
-                <a key={l.href} className="u" href={l.href} target="_blank" rel="noreferrer">
-                  {l.label}
-                </a>
-              ))}
-            </p>
-          </article>
-        ))}
-      </section>
+            <a href={`mailto:${EMAIL}`} className="mt-6 inline-block text-lg font-semibold text-accent hover:underline">
+              {EMAIL}
+            </a>
+            <div className="mt-4 flex justify-center gap-6 text-sm font-medium text-muted">
+              <a href={LINKEDIN} target="_blank" rel="noreferrer" className="hover:text-text">LinkedIn</a>
+              <a href={GITHUB} target="_blank" rel="noreferrer" className="hover:text-text">GitHub</a>
+            </div>
+          </div>
+        </section>
+      </main>
 
-      <hr className="my-16 border-rule" />
-
-      <footer>
-        <h2 className="font-serif text-2xl font-semibold">Contato</h2>
-        <p className="mt-4 leading-relaxed">
-          O jeito mais fácil de falar comigo é por e-mail, em{" "}
-          <a className="u" href={`mailto:${EMAIL}`}>{EMAIL}</a>, ou pelo{" "}
-          <a className="u" href={LINKEDIN} target="_blank" rel="noreferrer">LinkedIn</a>. O resto do meu código está no{" "}
-          <a className="u" href={GITHUB} target="_blank" rel="noreferrer">GitHub</a>.
-        </p>
+      <footer className="border-t border-line py-8 text-center text-sm text-muted">
+        © {new Date().getFullYear()} Leonardo de Lima Pedroso
       </footer>
-    </main>
+    </>
   );
 }

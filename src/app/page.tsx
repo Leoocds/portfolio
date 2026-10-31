@@ -21,6 +21,9 @@ const skills = [
   "Git",
 ];
 
+// stretches a small link's tap area to ~44px without changing how it looks
+const tapArea = "relative after:absolute after:-inset-x-2 after:-inset-y-3";
+
 function Cover({ cover }: { cover: Project["cover"] }) {
   if (cover.kind === "discord") return <DiscordPreview />;
   if (cover.kind === "mobile") {
@@ -93,7 +96,7 @@ function ProjectCard({ p }: { p: Project }) {
               href={l.href}
               target="_blank"
               rel="noreferrer"
-              className="text-accent hover:underline"
+              className={`${tapArea} text-accent hover:underline active:opacity-60`}
             >
               {l.label}
             </a>
@@ -109,14 +112,14 @@ export default function Home() {
     <>
       <header className="sticky top-0 z-40 border-b border-line bg-bg/90 backdrop-blur">
         <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4 sm:px-6">
-          <a href="#" className="font-semibold tracking-tight">
+          <a href="#" className={`${tapArea} font-semibold tracking-tight active:opacity-60`}>
             Leonardo Pedroso
           </a>
           <div className="flex gap-6 text-sm text-muted">
-            <a href="#projetos" className="hover:text-text">
+            <a href="#projetos" className={`${tapArea} hover:text-text active:opacity-60`}>
               Projetos
             </a>
-            <a href="#contato" className="hover:text-text">
+            <a href="#contato" className={`${tapArea} hover:text-text active:opacity-60`}>
               Contato
             </a>
           </div>
@@ -140,7 +143,7 @@ export default function Home() {
                 href={LINKEDIN}
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-lg bg-accent px-5 py-2.5 text-sm font-semibold text-white transition hover:brightness-110"
+                className="rounded-lg bg-accent px-5 py-3 text-sm font-semibold text-white transition select-none hover:brightness-110 active:brightness-90"
               >
                 LinkedIn
               </a>
@@ -148,13 +151,13 @@ export default function Home() {
                 href={GITHUB}
                 target="_blank"
                 rel="noreferrer"
-                className="rounded-lg border border-line px-5 py-2.5 text-sm font-semibold transition hover:bg-subtle"
+                className="rounded-lg border border-line px-5 py-3 text-sm font-semibold transition select-none hover:bg-subtle active:bg-subtle"
               >
                 GitHub
               </a>
               <a
                 href={`mailto:${EMAIL}`}
-                className="rounded-lg border border-line px-5 py-2.5 text-sm font-semibold transition hover:bg-subtle"
+                className="rounded-lg border border-line px-5 py-3 text-sm font-semibold transition select-none hover:bg-subtle active:bg-subtle"
               >
                 E-mail
               </a>
@@ -207,7 +210,7 @@ export default function Home() {
             </p>
             <a
               href={`mailto:${EMAIL}`}
-              className="mt-6 inline-block text-lg font-semibold text-accent hover:underline"
+              className={`${tapArea} mt-6 inline-block text-lg font-semibold break-all text-accent hover:underline active:opacity-60`}
             >
               {EMAIL}
             </a>
@@ -216,7 +219,7 @@ export default function Home() {
                 href={LINKEDIN}
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-text"
+                className={`${tapArea} hover:text-text active:opacity-60`}
               >
                 LinkedIn
               </a>
@@ -224,7 +227,7 @@ export default function Home() {
                 href={GITHUB}
                 target="_blank"
                 rel="noreferrer"
-                className="hover:text-text"
+                className={`${tapArea} hover:text-text active:opacity-60`}
               >
                 GitHub
               </a>

@@ -38,6 +38,21 @@
   --font-sans: var(--font-geist);
 }
 
+/* hover only on mouse/trackpad, so it doesn't stay stuck after a tap */
+@custom-variant hover {
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      @slot;
+    }
+  }
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 4.5rem;

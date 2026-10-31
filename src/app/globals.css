@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #f6f3ee;
+  --ink: #23201c;
+  --soft: #6b645b;
+  --rule: #ddd6cb;
+  --link: #9a3b1b;
+}
+
+@theme inline {
+  --color-paper: var(--paper);
+  --color-ink: var(--ink);
+  --color-soft: var(--soft);
+  --color-rule: var(--rule);
+  --color-link: var(--link);
+  --font-serif: var(--font-serif-family);
+  --font-sans: var(--font-sans-family);
+}
+
+html {
+  scroll-padding-top: 2rem;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  font-size: 1.0625rem;
+}
+
+a.u {
+  color: var(--link);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a.u:hover {
+  text-decoration-thickness: 2px;
+}
